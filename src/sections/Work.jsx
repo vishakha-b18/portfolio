@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import './Work.css'
 
 
@@ -137,7 +137,23 @@ const PROJECTS = [
 
 export default function Work() {
   const [active, setActive] = useState('featured')
+  const tabsRef = useRef(null)
   const tab = TABS.find(t => t.id === active)
+
+  // On narrow screens the tab strip scrolls, so the selected tab can sit off
+  // screen. Nudge it into view horizontally without moving the page.
+  useEffect(() => {
+    const bar = tabsRef.current
+    const el = bar?.querySelector('.work-tab.active')
+    if (!bar || !el) return
+    const barBox = bar.getBoundingClientRect()
+    const elBox = el.getBoundingClientRect()
+    if (elBox.left < barBox.left) {
+      bar.scrollLeft += elBox.left - barBox.left - 12
+    } else if (elBox.right > barBox.right) {
+      bar.scrollLeft += elBox.right - barBox.right + 12
+    }
+  }, [active])
   const filtered = active === 'featured' ? PROJECTS.filter(p => p.featured) : PROJECTS.filter(p => p.company === active)
 
   // Group a company's projects by business area (Featured stays a single flat group).
@@ -177,7 +193,7 @@ export default function Work() {
       <h2>Built. Shipped. Measured.</h2>
 
       {/* Tab bar */}
-      <div className="work-tabs">
+      <div className="work-tabs" ref={tabsRef}>
         {TABS.map(t => (
           <button
             key={t.id}

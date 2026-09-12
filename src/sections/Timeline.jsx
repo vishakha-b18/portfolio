@@ -10,6 +10,10 @@ function mo(year, month) {
 const TOTAL_MONTHS = mo(END_YEAR, 12) + 1
 const NOW_OFFSET = mo(2026, 6)
 
+const MONTHS = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+const fmtDate = ([y, m]) => `${MONTHS[m]} ${y}`
+const fmtRange = (start, end) => `${fmtDate(start)} – ${end ? fmtDate(end) : 'Present'}`
+
 const ROWS = [
   {
     label: 'BIE II · Prime Video',
@@ -242,6 +246,26 @@ export default function Timeline() {
           )}
         </div>
       </div>
+
+      {/* Narrow screens: the gantt has no room for a meaningful horizontal axis,
+          so the same rows render as a list with the dates written out. CSS swaps
+          between this and the chart at 700px. */}
+      <ol className="gantt-mobile">
+        {ROWS.map((row, i) => (
+          <li key={i} className={`gm-row ${row.current ? 'current' : ''}`} style={{ '--rc': row.color }}>
+            <span className="gm-icon">{row.icon}</span>
+            <div className="gm-body">
+              <div className="gm-name">{row.label}</div>
+              <div className="gm-sub">{row.sublabel}</div>
+              <div className="gm-dates">
+                {fmtRange(row.start, row.end)}
+                {row.current && <span className="gm-now">NOW</span>}
+              </div>
+              <div className="gm-hl">{row.highlight}</div>
+            </div>
+          </li>
+        ))}
+      </ol>
 
     </section>
   )

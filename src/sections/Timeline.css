@@ -209,3 +209,84 @@
   border-radius: 3px;
   flex-shrink: 0;
 }
+
+/* ---- Mobile list (swaps in for the gantt below 700px) ---- */
+
+/* Hidden on desktop: the chart is the better view when there's width for an axis. */
+.gantt-mobile { display: none; }
+
+@media (max-width: 700px) {
+  /* The gantt needs a horizontal axis to mean anything, and there isn't room. */
+  .gantt-year-row,
+  .gantt-wrap { display: none; }
+
+  .gantt-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 24px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .gm-row {
+    display: flex;
+    gap: 12px;
+    padding: 14px 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--rc);
+    border-radius: 0 10px 10px 0;
+  }
+
+  .gm-icon {
+    font-size: 1.1rem;
+    line-height: 1.4;
+    flex-shrink: 0;
+  }
+
+  .gm-body { min-width: 0; }
+
+  .gm-name {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.35;
+  }
+
+  .gm-sub {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-top: 1px;
+  }
+
+  .gm-dates {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.76rem;
+    color: var(--rc);
+    font-weight: 600;
+    margin-top: 7px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .gm-now {
+    font-size: 0.58rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    padding: 1px 5px;
+    border-radius: 4px;
+    background: color-mix(in srgb, var(--rc) 18%, transparent);
+    animation: now-fade 2s ease-in-out infinite;
+  }
+
+  /* The highlight is a hover tooltip on desktop. There's no hover on a phone,
+     so it's shown inline instead. */
+  .gm-hl {
+    font-size: 0.78rem;
+    color: var(--muted);
+    line-height: 1.5;
+    margin-top: 6px;
+  }
+}

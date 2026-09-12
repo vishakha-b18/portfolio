@@ -1,0 +1,176 @@
+.exp-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Amazon parent block */
+.exp-parent {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.exp-parent.active {
+  border-color: #ff9900;
+}
+
+.exp-parent-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 20px 24px 16px;
+  cursor: pointer;
+}
+
+.exp-parent-header:hover .exp-company {
+  color: #ff9900;
+}
+
+.exp-sub-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 0 16px 16px;
+}
+
+@media (max-width: 600px) {
+  .exp-sub-cards { grid-template-columns: 1fr; }
+}
+
+.exp-sub-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 16px;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  font-family: inherit;
+  color: var(--text);
+}
+
+.exp-sub-card:hover {
+  border-color: var(--sub-color);
+}
+
+.exp-sub-card.active {
+  border-color: var(--sub-color);
+  background: color-mix(in srgb, var(--sub-color) 10%, var(--bg));
+}
+
+/* Current role — pulsing border */
+.exp-sub-card.current {
+  border-color: var(--sub-color);
+  background: color-mix(in srgb, var(--sub-color) 6%, var(--bg));
+  animation: border-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes border-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--sub-color) 40%, transparent); }
+  50%       { box-shadow: 0 0 0 5px color-mix(in srgb, var(--sub-color) 0%, transparent); }
+}
+
+.sub-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--sub-color);
+  margin-top: 5px;
+  flex-shrink: 0;
+}
+
+.sub-role-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.sub-role {
+  font-size: 0.85rem;
+  color: var(--text);
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.sub-period {
+  font-size: 0.75rem;
+  color: var(--sub-color);
+  margin-top: 4px;
+}
+
+.now-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  color: var(--sub-color);
+  background: color-mix(in srgb, var(--sub-color) 15%, transparent);
+  border: 1px solid color-mix(in srgb, var(--sub-color) 50%, transparent);
+  border-radius: 20px;
+  padding: 2px 8px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  animation: badge-glow 2.4s ease-in-out infinite;
+}
+
+@keyframes badge-glow {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+
+/* Single company card */
+.exp-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px 24px;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  width: 100%;
+  font-family: inherit;
+  color: var(--text);
+}
+
+.exp-card:hover { border-color: var(--card-color); }
+.exp-card.active {
+  border-color: var(--card-color);
+  background: color-mix(in srgb, var(--card-color) 8%, var(--surface));
+}
+
+.exp-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+
+.exp-company {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text);
+  transition: color 0.2s;
+}
+
+.exp-role {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.exp-period {
+  font-size: 0.78rem;
+  margin-top: 4px;
+}

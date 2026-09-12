@@ -1,0 +1,145 @@
+.sql-window {
+  max-width: 620px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  background: #0a140f;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+  font-family: ui-monospace, "SF Mono", "Fira Code", Menlo, monospace;
+}
+
+.sql-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 16px;
+  background: #102019;
+  border-bottom: 1px solid var(--border);
+}
+
+.sql-dot { width: 11px; height: 11px; border-radius: 50%; }
+.sql-dot.r { background: #ff5f56; }
+.sql-dot.y { background: #ffbd2e; }
+.sql-dot.g { background: #27c93f; }
+
+.sql-file {
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-left: 10px;
+}
+
+.sql-run {
+  margin-left: auto;
+  font-size: 0.72rem;
+  color: var(--accent);
+  letter-spacing: 0.04em;
+}
+
+.sql-body {
+  padding: 20px 22px 22px;
+  font-size: 0.86rem;
+  line-height: 1.85;
+}
+
+.sql-line {
+  display: flex;
+  gap: 16px;
+  min-height: 1.85em;
+}
+
+.sql-gutter {
+  color: #3a5546;
+  user-select: none;
+  width: 14px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.sql-text { color: #e6f2ec; white-space: pre-wrap; }
+
+.kw  { color: #34d399; font-weight: 600; }
+.str { color: #fbbf24; }
+.cm  { color: #5e7a6b; font-style: italic; }
+.col { color: #60a5fa; }
+.tx  { color: #cde3d8; }
+
+.sql-cursor {
+  display: inline-block;
+  width: 7px;
+  height: 1.05em;
+  background: var(--accent);
+  margin-left: 1px;
+  vertical-align: text-bottom;
+  animation: sql-blink 1s steps(1) infinite;
+}
+
+@keyframes sql-blink { 0%, 50% { opacity: 1; } 50.01%, 100% { opacity: 0; } }
+
+.sql-result {
+  margin-top: 18px;
+  border-top: 1px dashed var(--border);
+  padding-top: 14px;
+}
+
+.sql-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 10px;
+  border-radius: 9px;
+  text-decoration: none;
+  opacity: 0;
+  transform: translateY(8px);
+  animation: sql-rowin 0.4s ease forwards;
+  transition: background 0.18s;
+  font-family: system-ui, sans-serif;
+}
+
+.sql-row:hover {
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  text-decoration: none;
+}
+
+@keyframes sql-rowin {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.sql-ico {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.82rem;
+  flex-shrink: 0;
+}
+
+.sql-val {
+  color: #d6ece1;
+  font-size: 0.95rem;
+}
+
+.sql-row:hover .sql-val { color: var(--accent); }
+
+.sql-copy {
+  margin-left: auto;
+  font-size: 0.78rem;
+  color: var(--muted);
+  opacity: 0;
+  transition: opacity 0.18s;
+}
+
+.sql-row:hover .sql-copy { opacity: 1; }
+
+.sql-meta {
+  font-size: 0.74rem;
+  color: #5e7a6b;
+  margin-top: 12px;
+  padding-left: 10px;
+  font-family: ui-monospace, Menlo, monospace;
+  opacity: 0;
+  animation: sql-rowin 0.4s ease forwards;
+}

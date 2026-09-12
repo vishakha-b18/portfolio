@@ -1,0 +1,25 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0c1712;
+  --surface: #15241c;
+  --border: #2a4234;
+  --accent: #34d399;
+  --text: #e6f2ec;
+  --muted: #8da89b;
+}
+
+html { scroll-behavior: smooth; }
+body { overflow-x: hidden; }
+
+body {
+  background: linear-gradient(180deg, #06100b 0%, #0c1712 45%, #16271d 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  color: var(--text);
+  font-family: system-ui, sans-serif;
+  line-height: 1.6;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }

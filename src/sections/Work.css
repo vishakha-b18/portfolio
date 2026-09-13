@@ -341,3 +341,75 @@
   .work-metric-num { font-size: 1.95rem; }
   .work-card.featured .work-metric-num { font-size: 2.3rem; }
 }
+
+/* Desktop: the phone-only pieces stay out of the way. */
+.work-metric-grid { display: none; }
+.work-more { display: none; }
+
+@media (max-width: 720px) {
+  /* Impact summary: all of a company's numbers on one screen. */
+  .work-metric-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin: 18px 0 4px;
+  }
+
+  .wmg-cell {
+    background: color-mix(in srgb, var(--tc, var(--accent)) 8%, var(--bg));
+    border: 1px solid color-mix(in srgb, var(--tc, var(--accent)) 20%, transparent);
+    border-radius: 10px;
+    padding: 11px 12px;
+    min-width: 0;
+  }
+
+  .wmg-num {
+    display: block;
+    font-size: 1.25rem;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--tc, var(--accent));
+    font-variant-numeric: tabular-nums;
+  }
+
+  .wmg-label {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--muted);
+    margin-top: 3px;
+  }
+
+  /* Cards collapse to metric, title and tags. The description is one tap away. */
+  .work-card p {
+    max-height: 0;
+    margin-bottom: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.28s ease, opacity 0.2s ease, margin-bottom 0.28s ease;
+  }
+
+  .work-card.open p {
+    max-height: 60em;
+    margin-bottom: 12px;
+    opacity: 1;
+  }
+
+  .work-more {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin: 10px 0 12px;
+    padding: 7px 0 0;
+    background: none;
+    border: none;
+    border-top: 1px solid color-mix(in srgb, var(--tc, var(--accent)) 18%, transparent);
+    color: var(--tc, var(--accent));
+    font-family: inherit;
+    font-size: 0.76rem;
+    cursor: pointer;
+  }
+
+  .work-more-sign { font-size: 0.95rem; line-height: 1; }
+}

@@ -178,3 +178,82 @@
   .pipeline-arrow { display: none; }
   .impact-grid { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* ---- Phone: accordion instead of five expanded stages ----
+   The card already toggles an .active class on click, so this is styling only.
+   Collapsed each stage is one tappable row; open it shows its tools. */
+@media (max-width: 720px) {
+  .pipeline {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  /* The connector arrows only make sense in a horizontal pipeline. */
+  .pipeline-arrow { display: none; }
+
+  .pipeline-item { display: block; }
+
+  .pipeline-card {
+    position: relative;
+    height: auto;
+    display: grid;
+    grid-template-columns: auto auto 1fr auto;
+    align-items: center;
+    column-gap: 10px;
+    padding: 13px 14px;
+  }
+
+  .pipeline-card .stage-num { grid-column: 1; grid-row: 1; margin: 0; }
+  .pipeline-card .stage-icon { grid-column: 2; grid-row: 1; margin: 0; font-size: 1rem; }
+  .pipeline-card .stage-label { grid-column: 3; grid-row: 1; margin: 0; }
+
+  /* Collapsed: description and tools are hidden behind the tap. */
+  .pipeline-card .stage-desc,
+  .pipeline-card .stage-skills {
+    grid-column: 1 / -1;
+    max-height: 0;
+    margin: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.28s ease, opacity 0.2s ease, margin 0.28s ease;
+  }
+
+  .pipeline-card.active .stage-desc {
+    max-height: 4em;
+    opacity: 1;
+    margin: 8px 0 0;
+  }
+
+  .pipeline-card.active .stage-skills {
+    max-height: 40em;
+    opacity: 1;
+    margin: 10px 0 0;
+  }
+
+  /* Tools sit inline and wrap, rather than one full-width bar each. */
+  .pipeline-card .stage-skills {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .pipeline-card .stage-tag {
+    display: inline-block;
+    width: auto;
+    text-align: left;
+  }
+
+  /* Affordance so it reads as openable. */
+  .pipeline-card::after {
+    content: '+';
+    grid-column: 4;
+    grid-row: 1;
+    color: var(--sc);
+    font-size: 1.05rem;
+    line-height: 1;
+  }
+
+  .pipeline-card.active::after { content: '−'; }
+}

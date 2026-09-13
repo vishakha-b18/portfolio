@@ -302,3 +302,25 @@
 .about-bio + .about-bio {
   margin-top: 1.1rem;
 }
+
+/* ---- Phone hero: wave as a band, not a backdrop ----
+   On a narrow screen the wave spanned the full hero height, so the copy sat on
+   the busiest part of the animation. Lifting it into a band at the top gives the
+   text a clean background. HeroWave observes its container, so the canvas
+   resizes itself. */
+@media (max-width: 720px) {
+  .hero-wave {
+    bottom: auto;
+    height: 190px;
+    -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+  }
+
+  .hero-section {
+    padding: 208px 0 48px;
+  }
+
+  /* This scrim existed to punch a readable hole in the wave behind desktop
+     copy. With the wave lifted away there is nothing left to scrim. */
+  .hero-section::before { display: none; }
+}

@@ -493,3 +493,94 @@
 /* ---- Light theme: calm cards ----
    The corner glow suited the dark theme; on a light page it read as noise. */
 .work-card::before { display: none; }
+
+/* ---- Next-Best-Action flow ----
+   Signals on the left merge (bracket) into one action, then an offer. Pure
+   CSS so it reflows: a row on desktop, a stacked column on phones. */
+.nba-flow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 4px 0 16px;
+  padding: 14px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--tc, var(--accent)) 5%, var(--bg));
+  border: 1px solid color-mix(in srgb, var(--tc, var(--accent)) 16%, transparent);
+  font-size: 0.68rem;
+  line-height: 1.3;
+}
+
+.nba-signals {
+  list-style: none;
+  margin: 0;
+  padding: 0 12px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex-shrink: 0;
+  /* the bracket that shows the signals merging */
+  border-right: 1.5px solid color-mix(in srgb, var(--tc, var(--accent)) 45%, transparent);
+  border-radius: 0 8px 8px 0;
+}
+
+.nba-signals li {
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 3px 9px;
+  white-space: nowrap;
+}
+
+.nba-node {
+  flex: 1;
+  min-width: 0;
+  text-align: center;
+  font-weight: 600;
+  color: var(--tc, var(--accent));
+  background: var(--surface);
+  border: 1px solid color-mix(in srgb, var(--tc, var(--accent)) 40%, transparent);
+  border-radius: 8px;
+  padding: 8px 8px;
+}
+
+.nba-out {
+  color: var(--surface);
+  background: var(--tc, var(--accent));
+  border-color: var(--tc, var(--accent));
+}
+
+/* Arrow: a short line with a chevron head */
+.nba-arrow {
+  position: relative;
+  flex-shrink: 0;
+  width: 16px;
+  height: 1.5px;
+  background: color-mix(in srgb, var(--tc, var(--accent)) 55%, transparent);
+}
+.nba-arrow::after {
+  content: '';
+  position: absolute;
+  right: -1px;
+  top: -3px;
+  width: 6px;
+  height: 6px;
+  border-top: 1.5px solid color-mix(in srgb, var(--tc, var(--accent)) 55%, transparent);
+  border-right: 1.5px solid color-mix(in srgb, var(--tc, var(--accent)) 55%, transparent);
+  transform: rotate(45deg);
+}
+
+@media (max-width: 720px) {
+  .nba-flow { flex-direction: column; align-items: stretch; }
+  .nba-signals {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0 0 10px;
+    border-right: none;
+    border-bottom: 1.5px solid color-mix(in srgb, var(--tc, var(--accent)) 45%, transparent);
+    border-radius: 0 0 8px 8px;
+  }
+  .nba-arrow { align-self: center; width: 1.5px; height: 14px; }
+  .nba-arrow::after { right: -3px; top: auto; bottom: -1px; transform: rotate(135deg); }
+}

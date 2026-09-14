@@ -34,6 +34,29 @@ const TABS = [
   },
 ]
 
+// Small flow graphic for the Next-Best-Action card: several customer signals
+// resolve to one action, delivered at the right moment. Content mirrors the
+// card description only; nothing about how the engine decides.
+function NbaFlow() {
+  return (
+    <div
+      className="nba-flow"
+      role="img"
+      aria-label="Customer signals such as a trial about to expire, a finale just ending or a lapsed viewer returning feed into one best action per customer, sent as an offer at the right moment"
+    >
+      <ul className="nba-signals">
+        <li>Trial about to expire</li>
+        <li>Finale just ended</li>
+        <li>Lapsed viewer returns</li>
+      </ul>
+      <span className="nba-arrow" aria-hidden="true" />
+      <div className="nba-node">One best action per customer</div>
+      <span className="nba-arrow" aria-hidden="true" />
+      <div className="nba-node nba-out">Offer sent at the right moment</div>
+    </div>
+  )
+}
+
 // Stable DOM id for a card, so a Featured card can find its full version.
 const slug = s => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
 
@@ -75,6 +98,7 @@ const PROJECTS = [
     company: 'prime-video',
     area: 'AI & Automation',
     title: 'Next-Best-Action Engine',
+    diagram: 'nba',
     description: 'Built a prototype at a Vibeathon that sends each customer one well-timed offer when a moment matters, like a trial about to expire.',
     tags: ['GenAI', 'Agentic AI', 'Personalization'],
   },
@@ -232,6 +256,7 @@ export default function Work() {
           <>
             {p.tag && <span className="work-status-tag">{p.tag}</span>}
             <h3 className="work-title-lead">{p.title}</h3>
+            {p.diagram === 'nba' && <NbaFlow />}
           </>
         )}
         <p>{p.description}</p>

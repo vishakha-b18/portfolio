@@ -130,6 +130,10 @@
   margin-bottom: 10px;
 }
 
+/* Every card on the Featured tab is featured, so the badge says nothing there
+   and only collides with long area eyebrows. */
+#work[data-view="featured"] .featured-badge { display: none; }
+
 /* Projects grid */
 .work-grid {
   display: grid;
@@ -143,8 +147,8 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  background: color-mix(in srgb, var(--tc, var(--accent)) 8%, var(--bg));
-  border: 1px solid color-mix(in srgb, var(--tc, var(--accent)) 20%, transparent);
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 14px;
   padding: 22px 24px;
   transition: border-color 0.2s, transform 0.15s, background 0.3s, box-shadow 0.2s;
@@ -167,7 +171,7 @@
 .work-card:hover {
   border-color: color-mix(in srgb, var(--tc, var(--accent)) 55%, transparent);
   transform: translateY(-3px);
-  box-shadow: 0 12px 30px -12px color-mix(in srgb, var(--tc, var(--accent)) 45%, transparent);
+  box-shadow: 0 10px 24px -14px rgba(15, 23, 42, 0.2);
 }
 
 .work-card:hover::before { opacity: 1; }
@@ -177,11 +181,20 @@
 @media (min-width: 720px) {
   .work-card.featured { grid-column: span 2; }
   .work-area:has(.work-area-head) .work-card.featured { grid-column: auto; }
+  /* An area with exactly two cards splits the row in half instead of leaving
+     a third empty column, so the cards read wide rather than tall. */
+  #work[data-view="company"] .work-grid:has(> .work-card:nth-child(2):last-child) {
+    grid-template-columns: 1fr 1fr;
+  }
+  /* A lone card takes the same half-width, so it doesn't sit narrow and tall. */
+  #work[data-view="company"] .work-grid:has(> .work-card:only-child) {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 .work-card.featured {
   border-color: color-mix(in srgb, var(--tc, var(--accent)) 35%, var(--border));
-  background: color-mix(in srgb, var(--tc, var(--accent)) 12%, var(--bg));
+  background: color-mix(in srgb, var(--tc, var(--accent)) 4%, var(--surface));
 }
 
 .featured-badge {
@@ -200,6 +213,15 @@
 }
 
 /* Big hero metric */
+/* Featured cards carry an absolutely positioned badge top-right. Short metrics
+   clear it by luck; long ones like "4K -> 1.5M" run underneath, so reserve the
+   space on every featured card. */
+.work-card.featured .work-metric { padding-right: 82px; }
+
+@media (max-width: 720px) {
+  .work-card.featured .work-metric { padding-right: 76px; }
+}
+
 .work-metric {
   display: flex;
   flex-direction: column;
@@ -223,23 +245,6 @@
   font-size: 0.75rem;
   color: var(--muted);
   font-weight: 500;
-}
-
-/* Work-in-progress cards read as status, not stat */
-.work-card.wip .work-metric-num {
-  font-size: 1.4rem;
-  color: var(--muted);
-}
-.work-card.wip .work-metric-num::before {
-  content: '';
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--tc, var(--accent));
-  margin-right: 8px;
-  vertical-align: middle;
-  animation: now-fade 2s ease-in-out infinite;
 }
 
 .work-card h3 {
@@ -342,9 +347,30 @@
   .work-card.featured .work-metric-num { font-size: 2.3rem; }
 }
 
+/* ---- Title-led card ----
+   A card without a real result to headline (work in progress, a prototype)
+   leads with its title and an optional status tag instead of a number. */
+.work-status-tag {
+  align-self: flex-start;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--tc, var(--accent));
+  background: color-mix(in srgb, var(--tc, var(--accent)) 8%, var(--bg));
+  border: 1px solid color-mix(in srgb, var(--tc, var(--accent)) 25%, transparent);
+  border-radius: 999px;
+  padding: 3px 10px;
+  margin-bottom: 12px;
+}
+
+.work-title-lead {
+  font-size: 1.05rem !important;
+  margin-bottom: 10px !important;
+}
+
 /* Desktop: the phone-only pieces stay out of the way. */
 .work-metric-grid { display: none; }
-.work-more { display: none; }
 
 @media (max-width: 720px) {
   /* Impact summary: all of a company's numbers on one screen. */
@@ -380,36 +406,90 @@
     margin-top: 3px;
   }
 
-  /* Cards collapse to metric, title and tags. The description is one tap away. */
-  .work-card p {
-    max-height: 0;
-    margin-bottom: 0;
-    opacity: 0;
-    overflow: hidden;
-    transition: max-height 0.28s ease, opacity 0.2s ease, margin-bottom 0.28s ease;
-  }
-
-  .work-card.open p {
-    max-height: 60em;
-    margin-bottom: 12px;
-    opacity: 1;
-  }
-
-  .work-more {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    margin: 10px 0 12px;
-    padding: 7px 0 0;
-    background: none;
-    border: none;
-    border-top: 1px solid color-mix(in srgb, var(--tc, var(--accent)) 18%, transparent);
-    color: var(--tc, var(--accent));
-    font-family: inherit;
-    font-size: 0.76rem;
-    cursor: pointer;
-  }
-
-  .work-more-sign { font-size: 0.95rem; line-height: 1; }
 }
+
+/* ---- Long metrics ----
+   "4K -> 1.5M" and "1,200 -> 400" overflow the narrowest card and break across
+   two lines. Step them down instead. This has to sit at the end of the file:
+   .work-card.featured .work-metric-num and the mobile override have the same
+   specificity, so whichever comes last wins. */
+.work-card.long-metric .work-metric-num,
+.work-card.featured.long-metric .work-metric-num {
+  font-size: 1.7rem;
+  white-space: nowrap;
+}
+
+@media (max-width: 720px) {
+  .work-card.long-metric .work-metric-num,
+  .work-card.featured.long-metric .work-metric-num {
+    font-size: 1.45rem;
+  }
+}
+
+/* The Featured view is flagged with a data-view attribute on #work, never a
+   class. main.jsx's scroll-reveal adds a `visible` class to each section once;
+   if React owned #work's className it would overwrite that on every tab change
+   and the whole section would fade to opacity 0. */
+/* ---- Featured tab: compact highlights ----
+   Featured grows every time a card is marked featured, and at full size each
+   card spanned two columns with its whole description. Here it's a highlights
+   reel: headline number, area, title and tags. The full story lives on each
+   company's tab. */
+#work[data-view="featured"] .work-card {
+  padding: 18px 20px;
+}
+
+#work[data-view="featured"] .work-card p {
+  display: none;
+}
+
+#work[data-view="featured"] .work-metric {
+  margin-bottom: 10px;
+}
+
+#work[data-view="featured"] .work-card.featured:not(.long-metric) .work-metric-num {
+  font-size: 2.4rem;
+}
+
+@media (min-width: 720px) {
+  #work[data-view="featured"] .work-card.featured { grid-column: auto; }
+}
+
+/* ---- Featured cards link to the full project ----
+   On the Featured tab each card is a teaser; clicking it opens the company tab
+   and brings the full card into view. */
+#work[data-view="featured"] .work-card {
+  cursor: pointer;
+}
+
+#work[data-view="featured"] .work-card:focus-visible {
+  outline: 2px solid var(--tc, var(--accent));
+  outline-offset: 3px;
+}
+
+.work-see-full {
+  display: none;
+}
+
+#work[data-view="featured"] .work-see-full {
+  display: block;
+  margin: 12px 0 0;
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--tc, var(--accent));
+}
+
+/* Brief highlight on the card you arrived at, so the eye lands on it. */
+@keyframes card-flash {
+  0%   { box-shadow: 0 0 0 0 color-mix(in srgb, var(--tc, var(--accent)) 0%, transparent); }
+  25%  { box-shadow: 0 0 0 3px color-mix(in srgb, var(--tc, var(--accent)) 70%, transparent); }
+  100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--tc, var(--accent)) 0%, transparent); }
+}
+
+.work-card.flash {
+  animation: card-flash 1.6s ease-out;
+}
+
+/* ---- Light theme: calm cards ----
+   The corner glow suited the dark theme; on a light page it read as noise. */
+.work-card::before { display: none; }

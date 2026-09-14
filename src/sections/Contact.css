@@ -3,8 +3,8 @@
   border: 1px solid var(--border);
   border-radius: 14px;
   overflow: hidden;
-  background: #0a140f;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+  background: #0f172a;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.18);
   font-family: ui-monospace, "SF Mono", "Fira Code", Menlo, monospace;
 }
 
@@ -13,7 +13,7 @@
   align-items: center;
   gap: 8px;
   padding: 11px 16px;
-  background: #102019;
+  background: #1e293b;
   border-bottom: 1px solid var(--border);
 }
 
@@ -48,20 +48,20 @@
 }
 
 .sql-gutter {
-  color: #3a5546;
+  color: #475569;
   user-select: none;
   width: 14px;
   text-align: right;
   flex-shrink: 0;
 }
 
-.sql-text { color: #e6f2ec; white-space: pre-wrap; }
+.sql-text { color: #e2e8f0; white-space: pre-wrap; }
 
-.kw  { color: #34d399; font-weight: 600; }
+.kw  { color: #818cf8; font-weight: 600; }
 .str { color: #fbbf24; }
-.cm  { color: #5e7a6b; font-style: italic; }
-.col { color: #60a5fa; }
-.tx  { color: #cde3d8; }
+.cm  { color: #94a3b8; font-style: italic; }
+.col { color: #38bdf8; }
+.tx  { color: #cbd5e1; }
 
 .sql-cursor {
   display: inline-block;
@@ -118,7 +118,7 @@
 }
 
 .sql-val {
-  color: #d6ece1;
+  color: #e2e8f0;
   font-size: 0.95rem;
 }
 
@@ -136,10 +136,21 @@
 
 .sql-meta {
   font-size: 0.74rem;
-  color: #5e7a6b;
+  color: #94a3b8;
   margin-top: 12px;
   padding-left: 10px;
   font-family: ui-monospace, Menlo, monospace;
   opacity: 0;
   animation: sql-rowin 0.4s ease forwards;
+}
+
+/* ---- Terminal keeps its own dark palette ----
+   The rest of the site is light, but this window stays dark as a deliberate
+   code-block moment. Several rules above use --accent, --muted and --border;
+   redefining them here gives everything inside the window values that read on
+   slate instead of the light page's values. */
+.sql-window {
+  --accent: #818cf8;
+  --muted: #94a3b8;
+  --border: #334155;
 }

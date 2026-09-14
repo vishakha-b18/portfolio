@@ -38,7 +38,7 @@ const FRAG = `
     float alpha = smoothstep(0.5, 0.0, d) * uOpacity;
     vec3 col = mix(cA, cB, smoothstep(0.0, 0.5, vHue));
     col = mix(col, cC, smoothstep(0.5, 1.0, vHue));
-    col += abs(vElev) * 0.35;
+    col -= abs(vElev) * 0.12;
     gl_FragColor = vec4(col, alpha);
   }
 `
@@ -84,20 +84,22 @@ export default function HeroWave() {
     geo.setAttribute('position', new THREE.BufferAttribute(positions, 3))
     geo.setAttribute('aHue', new THREE.BufferAttribute(hues, 1))
 
+    // Light page: normal blending at low opacity keeps the wave a faint texture.
+    // Additive blending, as on the old dark theme, washes out to white here.
     const mat = new THREE.ShaderMaterial({
       uniforms: {
         uTime: { value: 0 },
         uSize: { value: 22 },
-        uOpacity: { value: 0.95 },
-        cA: { value: new THREE.Color(0x4ade80) },
-        cB: { value: new THREE.Color(0x38bdf8) },
-        cC: { value: new THREE.Color(0xa78bfa) },
+        uOpacity: { value: 0.32 },
+        cA: { value: new THREE.Color(0x6366f1) },
+        cB: { value: new THREE.Color(0x0ea5e9) },
+        cC: { value: new THREE.Color(0x8b5cf6) },
       },
       vertexShader: VERT,
       fragmentShader: FRAG,
       transparent: true,
       depthWrite: false,
-      blending: THREE.AdditiveBlending,
+      blending: THREE.NormalBlending,
     })
 
     const points = new THREE.Points(geo, mat)

@@ -1,19 +1,20 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg: #0c1712;
-  --surface: #15241c;
-  --border: #2a4234;
-  --accent: #34d399;
-  --text: #e6f2ec;
-  --muted: #8da89b;
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --border: #e2e8f0;
+  --accent: #4f46e5;
+  --text: #0f172a;
+  --muted: #5a6a80;
+  color-scheme: light;
 }
 
 html { scroll-behavior: smooth; }
 body { overflow-x: hidden; }
 
 body {
-  background: linear-gradient(180deg, #06100b 0%, #0c1712 45%, #16271d 100%);
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 40%, #f1f5f9 100%);
   background-attachment: fixed;
   min-height: 100vh;
   color: var(--text);

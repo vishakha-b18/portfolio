@@ -7,7 +7,7 @@ const PIPELINE = [
     label: 'Ingest',
     icon: '⬇',
     description: 'Pull from any source',
-    color: '#fbbf24',
+    color: '#92400e',
     skills: ['AWS S3', 'Glue', 'Athena', 'Redshift', 'ClickHouse', 'Hive'],
   },
   {
@@ -15,7 +15,7 @@ const PIPELINE = [
     label: 'Transform',
     icon: '⚙',
     description: 'Shape & model the data',
-    color: '#60a5fa',
+    color: '#1d4ed8',
     skills: ['SQL', 'Python', 'Spark', 'ETL', 'Cube.js', 'Cube.yml'],
   },
   {
@@ -23,7 +23,7 @@ const PIPELINE = [
     label: 'Analyze',
     icon: '🔬',
     description: 'Surface what matters',
-    color: '#a78bfa',
+    color: '#7c3aed',
     skills: ['Statistical Modeling', 'A/B Testing', 'Product Analytics', 'Anomaly Detection', 'Forecasting'],
   },
   {
@@ -31,7 +31,7 @@ const PIPELINE = [
     label: 'Visualize',
     icon: '📊',
     description: 'Make it undeniable',
-    color: '#34d399',
+    color: '#047857',
     skills: ['Amazon QuickSight', 'Tableau', 'Power BI', 'Pendo', 'OBIEE', 'MS Excel'],
   },
   {
@@ -39,7 +39,7 @@ const PIPELINE = [
     label: 'Automate',
     icon: '⚡',
     description: 'Let it run itself',
-    color: '#d4a574',
+    color: '#9a3412',
     skills: ['LLM Prompt Engineering', 'Agentic Workflows', 'Kiro', 'QuickSight Workflows', 'GenAI'],
   },
 ]

@@ -13,7 +13,7 @@ const TABS = [
     company: 'Amazon',
     role: 'Business Intelligence Engineer II',
     period: 'Jul 2025 – Present',
-    color: '#818cf8',
+    color: '#0369a1',
     current: true,
   },
   {
@@ -22,7 +22,7 @@ const TABS = [
     company: 'Amazon',
     role: 'Business Intelligence Engineer I & II',
     period: 'May 2021 – Jun 2025',
-    color: '#60a5fa',
+    color: '#047857',
   },
   {
     id: 'tech-mahindra',
@@ -30,133 +30,142 @@ const TABS = [
     company: 'Tech Mahindra',
     role: 'Senior Business Intelligence Engineer',
     period: 'Oct 2014 – Jul 2019',
-    color: '#fbbf24',
+    color: '#92400e',
   },
 ]
 
+// Stable DOM id for a card, so a Featured card can find its full version.
+const slug = s => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
+
 const PROJECTS = [
+  // Prime Video
   {
     company: 'prime-video',
+    area: 'Partner & Product Analytics',
     featured: true,
-    title: 'Agentic On-Call Triage System',
-    short: 'On-call triage',
-    metric: '10 hrs',
-    metricSub: 'of weekly on-call toil, gone',
-    description: 'Agentic workflows that autonomously triage job failures, query system health, and run corrective actions — no human in the loop.',
-    tags: ['Agentic AI', 'Automation', 'Python'],
-  },
-  {
-    company: 'prime-video',
-    title: 'Partner Analytics Platform',
-    short: 'Partner platform',
-    metric: 'In build',
-    metricSub: 'launching soon',
-    wip: true,
-    description: 'Minute-by-minute viewership in Athena, a Cube.js semantic layer, and metric frameworks for ad placement and content quality — end to end.',
+    title: 'Partner Performance Metrics',
+    short: 'Partners',
+    metric: '300+',
+    metricSub: 'partners use these metrics',
+    description: 'Defined partner metrics with Product and built the data layer behind them. Partners use them to see what drives engagement, where viewers drop off and which campaigns lift streaming.',
     tags: ['Athena', 'Cube.js', 'AWS', 'QuickSight'],
   },
   {
     company: 'prime-video',
-    title: 'Pendo Guide Engagement Analytics',
-    short: 'Feature adoption',
-    metric: '+30%',
-    metricSub: 'feature adoption · NPS +10 pts',
-    description: 'Owned Pendo analytics strategy end to end — feature-tracking taxonomy and dashboards shipped across engineering and product.',
-    tags: ['Pendo', 'Product Analytics', 'Dashboard'],
+    area: 'Partner & Product Analytics',
+    title: 'Short-Form Video Analytics',
+    short: 'Engagement',
+    metric: '+10%',
+    metricSub: 'engagement, early personalization results',
+    description: 'Set up the measurement for a short-form video product. It gives a first set of partners and internal teams visibility into performance, and powers other use cases like personalization.',
+    tags: ['SQL', 'Statistical Analysis', 'Data Pipelines', 'QuickSight'],
   },
   {
-    company: 'grocery',
-    area: 'Supply Chain Operations',
+    company: 'prime-video',
+    area: 'Partner & Product Analytics',
     featured: true,
-    title: 'DC Cancellations Reduction',
-    short: 'Cancellations',
+    title: 'Merchandising Experiments',
+    short: 'CTR lift',
+    metric: '+4.5%',
+    metricSub: 'click-through lift from title ranking, statistically significant',
+    description: 'Set up the metrics and measurement pipelines for multiple merchandising experiments, covering carousel and title ranking and hero banner behavior. Translated the results into readouts partners can act on.',
+    tags: ['A/B Testing', 'Statistical Significance', 'Redshift', 'QuickSight'],
+  },
+  {
+    company: 'prime-video',
+    area: 'AI & Automation',
+    title: 'Next-Best-Action Engine',
+    description: 'Built a prototype at a Vibeathon that sends each customer one well-timed offer when a moment matters, like a trial about to expire.',
+    tags: ['GenAI', 'Agentic AI', 'Personalization'],
+  },
+  {
+    company: 'prime-video',
+    area: 'AI & Automation',
+    title: 'Agentic On-Call Triage',
+    short: 'On-call',
+    metric: '10 hrs',
+    metricSub: 'of weekly on-call investigation handled by agents',
+    description: "Agents take the first pass on on-call tickets and weekly metric swings, flagging what's broken versus what's a real change.",
+    tags: ['Agentic AI', 'Automation', 'Python'],
+  },
+
+  // Amazon Grocery
+  {
+    company: 'grocery',
+    area: 'Orders & Inventory',
+    featured: true,
+    title: 'Order Cancellations',
+    short: 'Saved',
     metric: '$2MM',
-    metricSub: 'saved · cancellations cut 9% → 3%',
-    description: 'Built a bridge analysis that broke the cancellation rate down by driver. Gave operations visibility into the issues to proactively fix them, which in turn improved cancellations across Europe and North America.',
+    metricSub: 'saved · cancellations cut from 9% to 3%',
+    description: 'Broke cancellations down by cause so operations could fix problems before they reached customers, across Europe and North America.',
     tags: ['SQL', 'Python', 'Data Pipelines', 'AWS'],
   },
   {
     company: 'grocery',
-    area: 'Supply Chain Operations',
-    title: 'ASIN Placement & Pick Optimization',
+    area: 'Orders & Inventory',
+    featured: true,
+    title: 'Instock & Waste',
+    short: 'Instock rate',
+    metric: '+2%',
+    metricSub: 'instock rate · waste down 4%',
+    description: 'Mapped how grocery buying decisions get made and surfaced avoidable mistakes, like manual overbuying, and why warehouses ran out of stock. Fixes went to the biggest causes first.',
+    tags: ['SQL', 'Forecasting', 'Python', 'QuickSight'],
+  },
+  {
+    company: 'grocery',
+    area: 'Warehouse Operations',
+    title: 'Warehouse Pick Speed',
     short: 'Pick time',
-    metric: '−18%',
-    metricSub: 'avg pick time per picker',
-    description: 'Improved pick rate by optimizing ASIN placement and picker rotations, guided by a regression that ranked its true drivers. Faster picks kept DC outbound commitments intact, supplying the FCs and stores downstream on schedule.',
+    metric: '\u221218%',
+    metricSub: 'time to pick each order',
+    description: 'Found what really slows pickers down, then rearranged product placement and shift rotations so stores and fulfillment centers got stock on time.',
     tags: ['SQL', 'Statistical Regression', 'Python'],
   },
   {
     company: 'grocery',
-    area: 'Supply Chain Operations',
-    title: 'Defect Visibility Model',
-    short: 'Defects',
-    metric: '−25%',
-    metricSub: 'defects per million opportunities (DPMO)',
-    description: 'Surfaced likely defects for DC operations teams ahead of their weekly audits, scored by a rule-based model. Catching shrunk ASINs, spoiled inventory and bin mismatches early stopped them degrading picks or sending wrong ASINs to FCs and stores.',
+    area: 'Warehouse Operations',
+    title: 'Early Defect Detection',
+    short: 'Defect rate',
+    metric: '\u221225%',
+    metricSub: 'warehouse defect rate',
+    description: 'A rule-based model flags spoiled inventory and misplaced items before weekly audits, so they get fixed before wrong items ship.',
     tags: ['SQL', 'Rule-Based Model', 'Defect Detection'],
   },
-  {
-    company: 'grocery',
-    area: 'Instock & Demand',
-    title: 'Root-Causing DC Out-of-Stocks',
-    short: 'Instock misses',
-    metric: '−1.5%',
-    metricSub: 'DC-driven instock misses, in 2 months',
-    description: 'Partnered with buying, instock, and supply chain managers to identify the failure buckets driving DC out-of-stocks. Quantified how much each one contributed, so the team could target the biggest fixes. This spanned all grocery DCs, which supply 50% of stock to FCs and stores, a share set to grow to 65%.',
-    tags: ['SQL', 'ETL', 'Supply Chain', 'QuickSight'],
-  },
-  {
-    company: 'grocery',
-    area: 'Instock & Demand',
-    title: 'Buying Workflow Optimization',
-    short: 'Instock & wastage',
-    metric: '+2% / −4%',
-    metricSub: 'instock rate up, wastage down',
-    description: 'Partnered with Product to map the buying system workflow, identify gaps and recommend solutions to close them. Buying above demand drives shrinkage and below it leaves shelves empty. Surfacing the controllable deviations, like an unplanned manual overbuy against an already scheduled delivery, let the next buying cycle correct for them.',
-    tags: ['SQL', 'Forecasting', 'Python'],
-  },
-  {
-    company: 'grocery',
-    area: 'Instock & Demand',
-    featured: true,
-    title: 'GenAI Anomaly Detection for WBR',
-    short: 'WBR analysis',
-    metric: '2+ hrs',
-    metricSub: 'of weekly WBR analysis, automated',
-    description: 'Partnered with a data engineer on one of the team\'s first GenAI use cases, an anomaly detector for Weekly Business Reviews. It flags instock issues automatically.',
-    tags: ['GenAI', 'LLM Prompt Engineering', 'Python'],
-  },
+
+  // Tech Mahindra
   {
     company: 'tech-mahindra',
-    title: 'Telecom KPI Platform',
-    short: 'Customers served',
+    title: 'Telecom KPI Reporting',
+    short: 'Customers',
     metric: '34M+',
     metricSub: 'customers across Kuwait, Qatar and South Africa',
-    description: 'Led a team of 4 that pulled data from separate source systems into reporting layers for MTN, VIVA and Vodafone. CXOs used them to track KPIs like customer base and revenue, and to make calls on plans, promotions and segments.',
+    description: 'Led a team of 4 building the reporting that telecom executives at MTN, VIVA and Vodafone used to decide on plans, promotions and customer segments.',
     tags: ['ODI', 'OBIEE', 'SQL', 'PL/SQL', 'Power BI', 'ETL'],
-  },
-  {
-    company: 'tech-mahindra',
-    title: 'Reporting Architecture Consolidation',
-    short: 'Reports cut',
-    metric: '1,200 → 400',
-    metricSub: 'reports consolidated',
-    description: 'Migrated the data model from Hyperion to OBIEE, unifying reporting while lifting performance and data quality.',
-    tags: ['OBIEE', 'Hyperion', 'SQL', 'Data Modeling'],
   },
 ]
 
 export default function Work() {
   const [active, setActive] = useState('featured')
-  const [expanded, setExpanded] = useState(() => new Set())
+  const [focusTitle, setFocusTitle] = useState(null)
+
+  // Featured cards are teasers. Clicking one opens its company tab; once that
+  // tab has rendered, bring the full card into view and flash it briefly.
+  const openFromFeatured = p => {
+    setActive(p.company)
+    setFocusTitle(p.title)
+  }
+
+  useEffect(() => {
+    if (!focusTitle) return
+    const frame = requestAnimationFrame(() => {
+      document.getElementById(`card-${slug(focusTitle)}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    })
+    const clear = setTimeout(() => setFocusTitle(null), 1600)
+    return () => { cancelAnimationFrame(frame); clearTimeout(clear) }
+  }, [focusTitle])
   const tabsRef = useRef(null)
   const tab = TABS.find(t => t.id === active)
-
-  const toggle = title => setExpanded(prev => {
-    const next = new Set(prev)
-    next.has(title) ? next.delete(title) : next.add(title)
-    return next
-  })
 
   // On narrow screens the tab strip scrolls, so the selected tab can sit off
   // screen. Nudge it into view horizontally without moving the page.
@@ -191,36 +200,54 @@ export default function Work() {
   const cardColor = (tab && tab.color) ? tab.color : 'var(--accent)'
 
   const renderCard = p => {
-    const open = expanded.has(p.title)
     return (
       <div
         key={p.title}
-        className={`work-card ${p.featured ? 'featured' : ''} ${p.wip ? 'wip' : ''} ${open ? 'open' : ''}`}
+        id={`card-${slug(p.title)}`}
+        className={`work-card ${p.featured ? 'featured' : ''} ${p.metric && p.metric.length > 7 ? 'long-metric' : ''} ${focusTitle === p.title ? 'flash' : ''}`}
         style={{ '--tc': cardColor }}
+        {...(active === 'featured' && {
+          role: 'button',
+          tabIndex: 0,
+          'aria-label': `${p.title}, view full project`,
+          onClick: () => openFromFeatured(p),
+          onKeyDown: e => {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openFromFeatured(p) }
+          },
+        })}
       >
         {p.featured && <span className="featured-badge">Featured</span>}
         {active === 'featured' && p.area && <div className="work-eyebrow">{p.area}</div>}
-        <div className="work-metric">
-          <span className="work-metric-num">{p.metric}</span>
-          {p.metricSub && <span className="work-metric-sub">{p.metricSub}</span>}
-        </div>
-        <h3>{p.title}</h3>
+        {/* Cards lead with a number only when there is a real result; otherwise
+            the title leads, with an optional status tag above it. */}
+        {p.metric ? (
+          <>
+            <div className="work-metric">
+              <span className="work-metric-num">{p.metric}</span>
+              {p.metricSub && <span className="work-metric-sub">{p.metricSub}</span>}
+            </div>
+            <h3>{p.title}</h3>
+          </>
+        ) : (
+          <>
+            {p.tag && <span className="work-status-tag">{p.tag}</span>}
+            <h3 className="work-title-lead">{p.title}</h3>
+          </>
+        )}
         <p>{p.description}</p>
-        {/* Phone only: the description is collapsed until tapped, so a tab's
-            worth of cards fits in a reasonable scroll. Hidden on desktop. */}
-        <button className="work-more" onClick={() => toggle(p.title)} aria-expanded={open}>
-          {open ? 'Show less' : 'Read more'}
-          <span className="work-more-sign">{open ? '−' : '+'}</span>
-        </button>
         <div className="work-tags">
           {p.tags.map(t => <span key={t} className="tag">{t}</span>)}
         </div>
+        {/* Featured tab only: the cue that the card opens the full project. */}
+        <span className="work-see-full">
+          View in {TABS.find(t => t.id === p.company)?.label} →
+        </span>
       </div>
     )
   }
 
   return (
-    <section id="work">
+    <section id="work" data-view={active === 'featured' ? 'featured' : 'company'}>
       <h2>Built. Shipped. Measured.</h2>
 
       {/* Tab bar */}
@@ -255,7 +282,7 @@ export default function Work() {
           cards already sit side by side. */}
       {tab && tab.id !== 'featured' && (
         <div className="work-metric-grid" style={{ '--tc': cardColor }}>
-          {filtered.map(p => (
+          {filtered.filter(p => p.metric).map(p => (
             <div className="wmg-cell" key={p.title}>
               <span className="wmg-num">{p.metric}</span>
               <span className="wmg-label">{p.short}</span>

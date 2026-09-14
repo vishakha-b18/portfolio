@@ -7,25 +7,25 @@ const GROUPS = [
     icon: '🏢',
     label: 'Where I\'ve Built',
     chips: ['Amazon Prime Video', 'Amazon Grocery', 'Tech Mahindra'],
-    accent: '#34d399',
+    accent: '#047857',
   },
   {
     icon: '📊',
     label: 'What I Do',
     chips: ['BI Engineering', 'Product Analytics', 'Data Pipelines', 'GenAI Automation', 'Agentic Workflows'],
-    accent: '#60a5fa',
+    accent: '#1d4ed8',
   },
   {
     icon: '📈',
     label: 'Business Domains',
     chips: ['Supply Chain', 'E-commerce', 'Media & Streaming', 'Retail', 'Telecom'],
-    accent: '#fbbf24',
+    accent: '#92400e',
   },
   {
     icon: '🛠️',
     label: 'How I Build',
     chips: ['SQL · Python · Spark', 'AWS Athena', 'QuickSight', 'Redshift', 'LLMs & Agents'],
-    accent: '#a78bfa',
+    accent: '#7c3aed',
   },
 ]
 
@@ -80,7 +80,7 @@ export default function Hero() {
           <div className="hero-cta">
             <a href="#contact" className="btn-primary">Get in Touch</a>
             <a href="#work" className="btn-secondary">View Work</a>
-            <a href="/VishakhaBhattacharjee_Resume_0315.pdf" target="_blank" rel="noreferrer" className="btn-resume">↗ Resume</a>
+            <a href="/VishakhaBhattacharjee_Resume.pdf" target="_blank" rel="noreferrer" className="btn-resume">↗ Resume</a>
           </div>
         </div>
 

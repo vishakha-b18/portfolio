@@ -19,32 +19,32 @@ const ROWS = [
     label: 'BIE II · Prime Video',
     sublabel: 'Amazon',
     start: [2025, 7], end: null,
-    color: '#818cf8', colorB: '#c7d2fe',
+    color: '#0369a1', colorB: '#7dd3fc',
     type: 'work', icon: '🎬',
-    highlight: 'Partner analytics platform, agentic triage, Pendo strategy',
+    highlight: 'Streaming Analytics',
     current: true,
   },
   {
     label: 'BIE I & II · Amazon Grocery',
     sublabel: 'Amazon',
     start: [2021, 5], end: [2025, 6],
-    color: '#60a5fa', colorB: '#bfdbfe',
+    color: '#047857', colorB: '#6ee7b7',
     type: 'work', icon: '🛒',
-    highlight: 'Instock pipelines, GenAI WBR anomaly detection, demand forecasting',
+    highlight: 'Supply Chain Analytics',
   },
   {
     label: 'M.S. Business Analytics',
     sublabel: 'Columbia University',
     start: [2019, 8], end: [2020, 12],
-    color: '#a78bfa', colorB: '#ddd6fe',
+    color: '#6d28d9', colorB: '#c4b5fd',
     type: 'education', icon: '🎓',
-    highlight: 'Teaching Assistant — Databases & Intro to Python',
+    highlight: 'Teaching Assistant, Databases & Intro to Python',
   },
   {
     label: 'Senior BI Engineer',
     sublabel: 'Tech Mahindra Ltd.',
     start: [2014, 10], end: [2019, 7],
-    color: '#fbbf24', colorB: '#fde68a',
+    color: '#92400e', colorB: '#fcd34d',
     type: 'work', icon: '📊',
     highlight: 'Built ETL & BI infra for telecom KPI platforms across Kuwait, Qatar and South Africa',
   },
@@ -52,7 +52,7 @@ const ROWS = [
     label: 'B.Tech · Electronics & Instrumentation',
     sublabel: 'Dr. B.C. Roy Engineering College',
     start: [2010, 8], end: [2014, 7],
-    color: '#94a3b8', colorB: '#cbd5e1',
+    color: '#475569', colorB: '#cbd5e1',
     type: 'education', icon: '🎓',
     highlight: 'Foundation in signal processing & embedded systems',
   },
@@ -156,7 +156,7 @@ export default function Timeline() {
             {/* Year grid lines only (no text — labels are in HTML above) */}
             {YEARS.filter(y => y % 2 === 0).map(y => {
               const x = xOf(mo(y, 1))
-              return <line key={y} x1={x} y1={0} x2={x} y2={svgH} stroke="#243a2e" strokeWidth="1" />
+              return <line key={y} x1={x} y1={0} x2={x} y2={svgH} stroke="#e2e8f0" strokeWidth="1" />
             })}
 
             {/* Bars */}
@@ -191,7 +191,6 @@ export default function Timeline() {
                     rx={6}
                     fill={`url(#grad${i})`}
                     className={`gantt-bar ${row.type === 'education' ? 'edu-bar' : ''} bar-${i}`}
-                    filter={row.current ? 'url(#glow)' : undefined}
                   />
 
                   {/* Education stripe overlay */}
@@ -205,7 +204,6 @@ export default function Timeline() {
                     <polygon
                       points={`${bx+bw},${by+BAR_H/2-7} ${bx+bw+10},${by+BAR_H/2} ${bx+bw},${by+BAR_H/2+7}`}
                       fill={row.colorB}
-                      filter="url(#glow)"
                       className="current-arrow"
                     />
                   )}
@@ -219,7 +217,7 @@ export default function Timeline() {
             })}
 
             {/* Now line */}
-            <line x1={nowX} y1={0} x2={nowX} y2={svgH - 14} stroke="#2dd4bf" strokeWidth="1" strokeDasharray="3 3" opacity="0.6" />
+            <line x1={nowX} y1={0} x2={nowX} y2={svgH - 14} stroke="#4f46e5" strokeWidth="1" strokeDasharray="3 3" opacity="0.6" />
 
             <defs>
               <pattern id="stripes" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)">
